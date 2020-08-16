@@ -1,0 +1,13 @@
+version: '3.8'
+
+services: 
+    online-resto-backend:
+        container_name: online-resto-serveur
+        build: 
+            context: ./
+            dockerfile: Dockerfile
+        command: npm start
+        working_dir: /usr/src/app
+        ports: 
+            - "5001:5001"
+        
