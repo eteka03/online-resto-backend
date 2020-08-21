@@ -13,6 +13,12 @@ const db = require('knex')({
       }
 })
 
+const signin = require('./controllers/signin')
+
+
+//controllers
+const table = require('./controllers/table')
+
 
 
 
@@ -31,7 +37,7 @@ app.get('/',(req,res)=>{
     .select('*')
     .where({id:1})
     .then(data => {
-        console.log('data',data)
+        console.log('dta',data)
         return res.send('succes')
     })
     .catch(err => {
@@ -43,6 +49,10 @@ app.get('/',(req,res)=>{
     
 })
 
+app.post('/signin',signin.handleAuthentication(db))
+
+app.post('/verifyStatus',(req,res)=>{table.verifyStatus(req,res,db)})
+
 app.listen(5001,()=>{
-    console.log("app listen on port 6000")
+    console.log("APP LISTENNING ON PORT 5001")
 })

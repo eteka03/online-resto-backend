@@ -10,14 +10,17 @@ services:
         working_dir: /usr/src/app
         links: 
             - postgres
+            - redis
         environment:
             POSTGRES_USER: claver
             POSTGRES_PASSWORD: claver
             POSTGRES_DB: resto-online
             POSTGRES_HOST: postgres
+            JWTSECRET: ${JWTSECRET}
+            REDIS_URI: redis://redis:6379
         volumes: 
-            - ./:/usr/src/app
-            - /usr/src/app/node_modules/
+            - "./:/usr/src/app"
+            - "/usr/src/app/node_modules/"
         ports: 
             - "5001:5001"
         
@@ -32,3 +35,10 @@ services:
             POSTGRES_HOST: postgres
         ports: 
             - "5432:5432"
+    
+    #redis
+    redis:
+        image: redis
+        ports: 
+            - "6379:6379"
+    
